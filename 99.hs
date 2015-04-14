@@ -39,7 +39,18 @@ compress [a] = [a]
 compress (x:xs)
     | x == head xs = compress xs
     | otherwise = x: (compress xs)
-    
+
+-- 9. Make a function named 'pack' that packs consecutive duplicates and standalone elements into sublists.
+pack :: Eq a => [a] -> [[a]]
+pack x =
+    let
+        pack' h [] = [[h]]
+        pack' h (x:xs)
+            | head x == h = h:x ++ xs
+            | otherwise = [h]:xs
+    in
+        foldl(pack  ') [] x
+
 -- | The main entry point.
 main :: IO ()
 main = do
@@ -52,10 +63,12 @@ main = do
     putStrLn $ show (flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]))
     putStrLn $ show (flatten (List []))
 
--}
     putStrLn $ show (compress "aaaabccaadeeee")
     putStrLn $ show (compress [1,1,2,3,1,2,2,3])
+-}
 
+    putStrLn $ show (pack "aaaabccaadeeee")
+    putStrLn $ show (pack [1,1,2,3,1,2,2,3])
 {-
     putStrLn $ show ()
     putStrLn $ show ()
