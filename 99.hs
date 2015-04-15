@@ -41,20 +41,22 @@ compress (x:xs)
     | otherwise = x: (compress xs)
 
 -- 9. Make a function named 'pack' that packs consecutive duplicates and standalone elements into sublists.
+
 pack :: Eq a => [a] -> [[a]]
-pack x =
-    let
-        pack' h [] = [[h]]
-        pack' h (x:xs)
-            | head x == h = h:x ++ xs
-            | otherwise = [h]:xs
+pack x = 
+    let 
+	pack' h [] = [[h]]
+	pack' h (x:xs)
+	    | head x == h = [h:x] ++ xs
+	    | otherwise = [[h]] ++ [x] ++ xs
     in
-        foldl(pack') [] x
+        foldr pack' [] x
 
 -- | The main entry point.
 main :: IO ()
 main = do
 {-
+    putStrLn $ show (isPalindrome [1,2,3,1])
     putStrLn $ show (isPalindrome [1,2,3,1])
     putStrLn $ show (isPalindrome "madamimadam")
     putStrLn $ show (isPalindrome [1,2,4,8,16,8,4,2,1])
@@ -65,6 +67,7 @@ main = do
 
     putStrLn $ show (compress "aaaabccaadeeee")
     putStrLn $ show (compress [1,1,2,3,1,2,2,3])
+
 -}
 
     putStrLn $ show (pack "aaaabccaadeeee")
