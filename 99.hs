@@ -49,7 +49,7 @@ pack x =
             | head x == h = h:x ++ xs
             | otherwise = [h]:xs
     in
-        foldl(pack  ') [] x
+        foldl(pack') [] x
 
 -- | The main entry point.
 main :: IO ()
