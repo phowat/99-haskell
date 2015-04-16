@@ -52,6 +52,19 @@ pack x =
     in
         foldr pack' [] x
 
+-- 10. Make a function named 'encode' that implements run-length encoding on a list. That is, consecutive duplicates and standalone elements are replaced with tuples of the format (number of occurences of element, element itself).
+
+encode :: Eq a => [a] -> [(Int, a)]
+encode x = 
+    let 
+	encode' h [] = [(1,h)]
+	encode' h (x:xs)
+	    | snd x == h = [((fst x) + 1, snd x)] ++ xs
+	    | otherwise = [(1, h)] ++ [x] ++ xs
+    in
+        foldr encode' [] x
+
+
 -- | The main entry point.
 main :: IO ()
 main = do
@@ -68,10 +81,13 @@ main = do
     putStrLn $ show (compress "aaaabccaadeeee")
     putStrLn $ show (compress [1,1,2,3,1,2,2,3])
 
--}
-
     putStrLn $ show (pack "aaaabccaadeeee")
     putStrLn $ show (pack [1,1,2,3,1,2,2,3])
+-}
+
+    putStrLn $ show (encode "aaaabccaadeeee")
+    putStrLn $ show (encode [1,1,2,3,1,2,2,3])
+
 {-
     putStrLn $ show ()
     putStrLn $ show ()
